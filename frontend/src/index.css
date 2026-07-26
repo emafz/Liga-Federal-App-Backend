@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap");
 
 :root {
-  --font-family: 'Outfit', sans-serif;
-  
+  --font-family: "Outfit", sans-serif;
+
   /* Color Palette matching the image */
   --color-page-bg: linear-gradient(135deg, #1bd6a7 0%, #4364f7 50%, #6f1ad6 100%);
   --color-dashboard-bg: #f5f4fa;
@@ -12,12 +12,12 @@
   --color-purple-light: #eae8f7;
   --color-accent-teal: #00d2c4;
   --color-accent-pink: #ff5a79;
-  
+
   /* Text colors */
   --color-text-dark: #2b2b3d;
   --color-text-muted: #7c7c8a;
   --color-text-light: #ffffff;
-  
+
   /* Shadows & Radius */
   --shadow-card: 0 10px 30px rgba(94, 67, 179, 0.04);
   --shadow-dashboard: 0 30px 60px rgba(0, 0, 0, 0.15);
@@ -232,7 +232,7 @@ body {
 }
 
 .visual-card::after {
-  content: '';
+  content: "";
   position: absolute;
   top: -20%;
   right: -10%;
@@ -491,7 +491,8 @@ label {
   color: var(--color-text-muted);
 }
 
-input, select {
+input,
+select {
   width: 100%;
   padding: 0.65rem 0.9rem;
   background: #f7f6fc;
@@ -504,7 +505,8 @@ input, select {
   transition: all 0.2s;
 }
 
-input:focus, select:focus {
+input:focus,
+select:focus {
   border-color: var(--color-purple-primary);
   background: #fff;
   box-shadow: 0 0 0 3px rgba(94, 67, 179, 0.12);
@@ -569,7 +571,7 @@ input:focus, select:focus {
   max-height: 340px;
   display: flex;
   flex-direction: column;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.9);
   flex-shrink: 0;
   transition: height 0.3s ease;

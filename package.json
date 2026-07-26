@@ -1,7 +1,7 @@
 {
-  "name": "crud-user-back-s6",
+  "name": "Liga-Federal-App-Backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Backend para la Liga Federal App",
   "main": "app.js",
   "type": "module",
   "scripts": {
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/emafz/crud-user-back-fz.git"
+    "url": "git+https://github.com/emafz/Liga-Federal-App-Backend"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/emafz/crud-user-back-fz/issues"
+    "url": "https://github.com/emafz/Liga-Federal-App-Backend/issues"
   },
-  "homepage": "https://github.com/emafz/crud-user-back-fz#readme",
+  "homepage": "https://github.com/emafz/Liga-Federal-App-Backend#readme",
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",

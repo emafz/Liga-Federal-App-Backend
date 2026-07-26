@@ -50,8 +50,8 @@ const loginService = async (data) => {
         provincia: user.provincia,
         pais: user.pais,
         codigoPostal: user.codigoPostal,
-        role: user.role
-      }
+        role: user.role,
+      },
     };
   } catch (error) {
     console.error("❌ Error en loginService:", error);

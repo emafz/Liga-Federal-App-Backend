@@ -18,5 +18,3 @@ export const env = {
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN,
   FRONTEND_URLS: process.env.FRONTEND_URLS,
 };
-
-

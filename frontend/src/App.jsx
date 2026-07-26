@@ -1,27 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { requestAPI } from "./services/api";
-import {
-  Home,
-  UserPlus,
-  LogIn,
-  LogOut,
-  Edit2,
-  Trash2,
-  RefreshCw,
-  Search,
-  Database,
-  Sparkles,
-  User,
-  MapPin,
-  Phone,
-  FileJson,
-  Plus,
-  UserCheck,
-  Calendar,
-  Clock,
-  Trash,
-  ShieldAlert
-} from "lucide-react";
+import { Home, UserPlus, LogIn, LogOut, Edit2, Trash2, RefreshCw, Search, Database, Sparkles, User, MapPin, Phone, FileJson, Plus, UserCheck, Calendar, Clock, Trash, ShieldAlert } from "lucide-react";
 
 // Formulario de campos de usuario vacíos por defecto
 const initialFormState = {
@@ -38,7 +17,7 @@ const initialFormState = {
   provincia: "",
   pais: "Argentina",
   codigoPostal: "",
-  role: "USER"
+  role: "USER",
 };
 
 function App() {
@@ -48,9 +27,7 @@ function App() {
   // Autenticación
   const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [role, setRole] = useState(localStorage.getItem("role") || null);
-  const [currentUserDetails, setCurrentUserDetails] = useState(
-    JSON.parse(localStorage.getItem("userDetails")) || null
-  );
+  const [currentUserDetails, setCurrentUserDetails] = useState(JSON.parse(localStorage.getItem("userDetails")) || null);
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
@@ -108,7 +85,7 @@ function App() {
         provincia: currentUserDetails.provincia || "",
         pais: currentUserDetails.pais || "Argentina",
         codigoPostal: currentUserDetails.codigoPostal || "",
-        role: currentUserDetails.role || "USER"
+        role: currentUserDetails.role || "USER",
       });
     }
   }, [currentUserDetails]);
@@ -123,7 +100,7 @@ function App() {
       status: res.status,
       statusText: res.statusText,
       duration: res.duration,
-      data: res.data
+      data: res.data,
     };
     setTerminalLogs((prev) => [newLog, ...prev]);
     setSelectedLog(newLog);
@@ -135,7 +112,7 @@ function App() {
     setLoading(true);
     const res = await requestAPI("POST", "/auth/login", {
       email: loginEmail,
-      password: loginPassword
+      password: loginPassword,
     });
     logToTerminal(res);
     setLoading(false);
@@ -160,7 +137,7 @@ function App() {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
     localStorage.removeItem("userDetails");
-    
+
     // Loguear el cierre de sesión en consola de forma simbólica
     setTerminalLogs((prev) => [
       {
@@ -171,9 +148,9 @@ function App() {
         status: 200,
         statusText: "OK",
         duration: 0,
-        data: { message: "Sesión cerrada correctamente por el usuario" }
+        data: { message: "Sesión cerrada correctamente por el usuario" },
       },
-      ...prev
+      ...prev,
     ]);
   };
 
@@ -303,7 +280,7 @@ function App() {
       provincia: provincias[Math.floor(Math.random() * provincias.length)],
       pais: "Argentina",
       codigoPostal: String(Math.floor(Math.random() * 8000) + 1000),
-      role: Math.random() > 0.8 ? "ADMIN" : "USER"
+      role: Math.random() > 0.8 ? "ADMIN" : "USER",
     });
   };
 
@@ -327,7 +304,7 @@ function App() {
       provincia: user.provincia || "",
       pais: user.pais || "Argentina",
       codigoPostal: user.codigoPostal || "",
-      role: user.role || "USER"
+      role: user.role || "USER",
     });
     setActiveTab("form");
   };
@@ -347,7 +324,7 @@ function App() {
       year: "numeric",
       hour: "2-digit",
       minute: "2-digit",
-      second: "2-digit"
+      second: "2-digit",
     });
   };
 
@@ -366,38 +343,22 @@ function App() {
 
   return (
     <div className="dashboard-wrapper">
-      
       {/* SIDEBAR FLOTANTE DE NAVEGACIÓN */}
       <aside className="sidebar">
         <div className="sidebar-brand">
           <Database size={26} className="text-white" />
         </div>
-        
-        <button
-          className={`sidebar-btn ${activeTab === "login" ? "active" : ""}`}
-          onClick={() => setActiveTab("login")}
-          title="Autenticación (Login)"
-          style={{ position: "relative" }}
-        >
+
+        <button className={`sidebar-btn ${activeTab === "login" ? "active" : ""}`} onClick={() => setActiveTab("login")} title="Autenticación (Login)" style={{ position: "relative" }}>
           <LogIn size={22} />
-          {token && (
-            <span style={{ position: "absolute", bottom: "4px", right: "4px", width: "8px", height: "8px", background: "var(--color-accent-teal)", borderRadius: "50%" }}></span>
-          )}
+          {token && <span style={{ position: "absolute", bottom: "4px", right: "4px", width: "8px", height: "8px", background: "var(--color-accent-teal)", borderRadius: "50%" }}></span>}
         </button>
 
-        <button
-          className={`sidebar-btn ${activeTab === "form" ? "active" : ""}`}
-          onClick={() => setActiveTab("form")}
-          title={isEditingId ? "Editar Usuario" : "Crear Usuario"}
-        >
+        <button className={`sidebar-btn ${activeTab === "form" ? "active" : ""}`} onClick={() => setActiveTab("form")} title={isEditingId ? "Editar Usuario" : "Crear Usuario"}>
           <UserPlus size={22} />
         </button>
 
-        <button
-          className={`sidebar-btn ${activeTab === "dashboard" ? "active" : ""}`}
-          onClick={() => setActiveTab("dashboard")}
-          title="Panel de Inicio"
-        >
+        <button className={`sidebar-btn ${activeTab === "dashboard" ? "active" : ""}`} onClick={() => setActiveTab("dashboard")} title="Panel de Inicio">
           <Home size={22} />
         </button>
 
@@ -406,11 +367,9 @@ function App() {
 
       {/* WORKSPACE PRINCIPAL CON SLIDER */}
       <main className="main-workspace">
-        
         {/* VIEWPORT CONTENEDOR DEL SLIDER */}
         <div className="slider-viewport">
           <div className="workspace-slider" style={{ transform: getSliderTransform() }}>
-            
             {/* PESTAÑA 1: AUTENTICACIÓN / LOGIN */}
             <div className="panel-view">
               <div className="form-panel-container" style={{ maxWidth: "450px", marginTop: "1.5rem" }}>
@@ -425,8 +384,10 @@ function App() {
                   <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
                     <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", background: "#f7f6fc", padding: "1rem", borderRadius: "14px", border: "1px solid rgba(80, 62, 189, 0.08)" }}>
                       <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--color-text-muted)" }}>ROL DE SESIÓN:</span>
-                      <span className="badge badge-teal" style={{ alignSelf: "flex-start", padding: "0.4rem 0.8rem" }}>{role}</span>
-                      
+                      <span className="badge badge-teal" style={{ alignSelf: "flex-start", padding: "0.4rem 0.8rem" }}>
+                        {role}
+                      </span>
+
                       <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--color-text-muted)", marginTop: "0.5rem" }}>TOKEN JWT ACTIVO:</span>
                       <div style={{ fontSize: "0.7rem", wordBreak: "break-all", background: "#181824", color: "#00e5ff", padding: "0.5rem", borderRadius: "8px", fontFamily: "monospace" }}>
                         {token}
@@ -441,23 +402,11 @@ function App() {
                   <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
                     <div className="form-group">
                       <label>Email de Usuario *</label>
-                      <input
-                        type="email"
-                        placeholder="ejemplo@correo.com"
-                        value={loginEmail}
-                        onChange={(e) => setLoginEmail(e.target.value)}
-                        required
-                      />
+                      <input type="email" placeholder="ejemplo@correo.com" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} required />
                     </div>
                     <div className="form-group">
                       <label>Contraseña *</label>
-                      <input
-                        type="password"
-                        placeholder="••••••••"
-                        value={loginPassword}
-                        onChange={(e) => setLoginPassword(e.target.value)}
-                        required
-                      />
+                      <input type="password" placeholder="••••••••" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} required />
                     </div>
                     <button type="submit" className="btn btn-primary" style={{ width: "100%" }} disabled={loading}>
                       <LogIn size={16} />
@@ -477,75 +426,42 @@ function App() {
                   <p className="greeting-subtitle" style={{ marginBottom: "1.25rem" }}>
                     Puedes actualizar tus campos de registro usando el método PUT. El email no es modificable.
                   </p>
-                  
+
                   <form onSubmit={handleUpdateProfile}>
                     <div className="form-grid-3" style={{ gridTemplateColumns: "1fr 1fr" }}>
                       <div className="form-group">
                         <label>Nombre *</label>
-                        <input
-                          type="text"
-                          value={profileForm.nombre}
-                          onChange={(e) => setProfileForm({ ...profileForm, nombre: e.target.value })}
-                          required
-                        />
+                        <input type="text" value={profileForm.nombre} onChange={(e) => setProfileForm({ ...profileForm, nombre: e.target.value })} required />
                       </div>
                       <div className="form-group">
                         <label>Apellido *</label>
-                        <input
-                          type="text"
-                          value={profileForm.apellido}
-                          onChange={(e) => setProfileForm({ ...profileForm, apellido: e.target.value })}
-                          required
-                        />
+                        <input type="text" value={profileForm.apellido} onChange={(e) => setProfileForm({ ...profileForm, apellido: e.target.value })} required />
                       </div>
                     </div>
 
                     <div className="form-grid-3" style={{ gridTemplateColumns: "1fr 1fr" }}>
                       <div className="form-group">
                         <label>Email (No modificable)</label>
-                        <input
-                          type="email"
-                          value={profileForm.email}
-                          disabled
-                          style={{ opacity: 0.6, cursor: "not-allowed" }}
-                        />
+                        <input type="email" value={profileForm.email} disabled style={{ opacity: 0.6, cursor: "not-allowed" }} />
                       </div>
                       <div className="form-group">
                         <label>Nueva Contraseña (Opcional)</label>
-                        <input
-                          type="password"
-                          placeholder="••••••••"
-                          value={profileForm.password}
-                          onChange={(e) => setProfileForm({ ...profileForm, password: e.target.value })}
-                        />
+                        <input type="password" placeholder="••••••••" value={profileForm.password} onChange={(e) => setProfileForm({ ...profileForm, password: e.target.value })} />
                       </div>
                     </div>
 
                     <div className="form-grid-3" style={{ gridTemplateColumns: "1fr 1fr 1fr" }}>
                       <div className="form-group">
                         <label>Fecha de Nacimiento *</label>
-                        <input
-                          type="date"
-                          value={profileForm.fechaNacimiento}
-                          onChange={(e) => setProfileForm({ ...profileForm, fechaNacimiento: e.target.value })}
-                          required
-                        />
+                        <input type="date" value={profileForm.fechaNacimiento} onChange={(e) => setProfileForm({ ...profileForm, fechaNacimiento: e.target.value })} required />
                       </div>
                       <div className="form-group">
                         <label>Edad *</label>
-                        <input
-                          type="number"
-                          value={profileForm.edad}
-                          onChange={(e) => setProfileForm({ ...profileForm, edad: e.target.value })}
-                          required
-                        />
+                        <input type="number" value={profileForm.edad} onChange={(e) => setProfileForm({ ...profileForm, edad: e.target.value })} required />
                       </div>
                       <div className="form-group">
                         <label>Género *</label>
-                        <select
-                          value={profileForm.genero}
-                          onChange={(e) => setProfileForm({ ...profileForm, genero: e.target.value })}
-                        >
+                        <select value={profileForm.genero} onChange={(e) => setProfileForm({ ...profileForm, genero: e.target.value })}>
                           <option value="Masculino">Masculino</option>
                           <option value="Femenino">Femenino</option>
                           <option value="Otro">Otro</option>
@@ -556,54 +472,29 @@ function App() {
                     <div className="form-grid-3" style={{ gridTemplateColumns: "1.2fr 0.8fr" }}>
                       <div className="form-group">
                         <label>Teléfono *</label>
-                        <input
-                          type="text"
-                          value={profileForm.telefono}
-                          onChange={(e) => setProfileForm({ ...profileForm, telefono: e.target.value })}
-                          required
-                        />
+                        <input type="text" value={profileForm.telefono} onChange={(e) => setProfileForm({ ...profileForm, telefono: e.target.value })} required />
                       </div>
                       <div className="form-group">
                         <label>Código Postal *</label>
-                        <input
-                          type="text"
-                          value={profileForm.codigoPostal}
-                          onChange={(e) => setProfileForm({ ...profileForm, codigoPostal: e.target.value })}
-                          required
-                        />
+                        <input type="text" value={profileForm.codigoPostal} onChange={(e) => setProfileForm({ ...profileForm, codigoPostal: e.target.value })} required />
                       </div>
                     </div>
 
                     <div className="form-grid-3">
                       <div className="form-group" style={{ gridColumn: "span 3" }}>
                         <label>Dirección física *</label>
-                        <input
-                          type="text"
-                          value={profileForm.direccion}
-                          onChange={(e) => setProfileForm({ ...profileForm, direccion: e.target.value })}
-                          required
-                        />
+                        <input type="text" value={profileForm.direccion} onChange={(e) => setProfileForm({ ...profileForm, direccion: e.target.value })} required />
                       </div>
                     </div>
 
                     <div className="form-grid-3" style={{ gridTemplateColumns: "1fr 1fr" }}>
                       <div className="form-group">
                         <label>Localidad *</label>
-                        <input
-                          type="text"
-                          value={profileForm.localidad}
-                          onChange={(e) => setProfileForm({ ...profileForm, localidad: e.target.value })}
-                          required
-                        />
+                        <input type="text" value={profileForm.localidad} onChange={(e) => setProfileForm({ ...profileForm, localidad: e.target.value })} required />
                       </div>
                       <div className="form-group">
                         <label>Provincia *</label>
-                        <input
-                          type="text"
-                          value={profileForm.provincia}
-                          onChange={(e) => setProfileForm({ ...profileForm, provincia: e.target.value })}
-                          required
-                        />
+                        <input type="text" value={profileForm.provincia} onChange={(e) => setProfileForm({ ...profileForm, provincia: e.target.value })} required />
                       </div>
                     </div>
 
@@ -621,19 +512,12 @@ function App() {
               <div className="form-panel-container">
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
                   <div>
-                    <h3 className="greeting-title">
-                      {isEditingId ? "Editar Perfil de Usuario" : "Crear Nuevo Usuario"}
-                    </h3>
+                    <h3 className="greeting-title">{isEditingId ? "Editar Perfil de Usuario" : "Crear Nuevo Usuario"}</h3>
                     <p className="greeting-subtitle">Completa los campos para interactuar con la base de datos</p>
                   </div>
-                  
+
                   {!isEditingId && (
-                    <button
-                      type="button"
-                      className="btn btn-secondary"
-                      onClick={generateMockData}
-                      title="Auto-completa todo el formulario de prueba en 1 clic"
-                    >
+                    <button type="button" className="btn btn-secondary" onClick={generateMockData} title="Auto-completa todo el formulario de prueba en 1 clic">
                       <Sparkles size={16} style={{ color: "var(--color-purple-primary)" }} />
                       Generar Datos de Prueba
                     </button>
@@ -644,28 +528,15 @@ function App() {
                   <div className="form-grid-3">
                     <div className="form-group">
                       <label>Nombre *</label>
-                      <input
-                        type="text"
-                        value={form.nombre}
-                        onChange={(e) => setForm({ ...form, nombre: e.target.value })}
-                        required
-                      />
+                      <input type="text" value={form.nombre} onChange={(e) => setForm({ ...form, nombre: e.target.value })} required />
                     </div>
                     <div className="form-group">
                       <label>Apellido *</label>
-                      <input
-                        type="text"
-                        value={form.apellido}
-                        onChange={(e) => setForm({ ...form, apellido: e.target.value })}
-                        required
-                      />
+                      <input type="text" value={form.apellido} onChange={(e) => setForm({ ...form, apellido: e.target.value })} required />
                     </div>
                     <div className="form-group">
                       <label>Género *</label>
-                      <select
-                        value={form.genero}
-                        onChange={(e) => setForm({ ...form, genero: e.target.value })}
-                      >
+                      <select value={form.genero} onChange={(e) => setForm({ ...form, genero: e.target.value })}>
                         <option value="Masculino">Masculino</option>
                         <option value="Femenino">Femenino</option>
                         <option value="Otro">Otro</option>
@@ -676,12 +547,7 @@ function App() {
                   <div className="form-grid-3">
                     <div className="form-group">
                       <label>Email *</label>
-                      <input
-                        type="email"
-                        value={form.email}
-                        onChange={(e) => setForm({ ...form, email: e.target.value })}
-                        required
-                      />
+                      <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required />
                     </div>
                     <div className="form-group">
                       <label>Contraseña {isEditingId ? "(Opcional)" : "*"}</label>
@@ -695,10 +561,7 @@ function App() {
                     </div>
                     <div className="form-group">
                       <label>Rol Asignado</label>
-                      <select
-                        value={form.role}
-                        onChange={(e) => setForm({ ...form, role: e.target.value })}
-                      >
+                      <select value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })}>
                         <option value="USER">USER</option>
                         <option value="ADMIN">ADMIN</option>
                         <option value="ROOT">ROOT</option>
@@ -710,81 +573,41 @@ function App() {
                   <div className="form-grid-3">
                     <div className="form-group">
                       <label>Fecha de Nacimiento *</label>
-                      <input
-                        type="date"
-                        value={form.fechaNacimiento}
-                        onChange={(e) => setForm({ ...form, fechaNacimiento: e.target.value })}
-                        required
-                      />
+                      <input type="date" value={form.fechaNacimiento} onChange={(e) => setForm({ ...form, fechaNacimiento: e.target.value })} required />
                     </div>
                     <div className="form-group">
                       <label>Edad *</label>
-                      <input
-                        type="number"
-                        value={form.edad}
-                        onChange={(e) => setForm({ ...form, edad: e.target.value })}
-                        required
-                      />
+                      <input type="number" value={form.edad} onChange={(e) => setForm({ ...form, edad: e.target.value })} required />
                     </div>
                     <div className="form-group">
                       <label>Teléfono *</label>
-                      <input
-                        type="text"
-                        value={form.telefono}
-                        onChange={(e) => setForm({ ...form, telefono: e.target.value })}
-                        required
-                      />
+                      <input type="text" value={form.telefono} onChange={(e) => setForm({ ...form, telefono: e.target.value })} required />
                     </div>
                   </div>
 
                   <div className="form-grid-3">
                     <div className="form-group" style={{ gridColumn: "span 2" }}>
                       <label>Dirección física *</label>
-                      <input
-                        type="text"
-                        value={form.direccion}
-                        onChange={(e) => setForm({ ...form, direccion: e.target.value })}
-                        required
-                      />
+                      <input type="text" value={form.direccion} onChange={(e) => setForm({ ...form, direccion: e.target.value })} required />
                     </div>
                     <div className="form-group">
                       <label>Código Postal *</label>
-                      <input
-                        type="text"
-                        value={form.codigoPostal}
-                        onChange={(e) => setForm({ ...form, codigoPostal: e.target.value })}
-                        required
-                      />
+                      <input type="text" value={form.codigoPostal} onChange={(e) => setForm({ ...form, codigoPostal: e.target.value })} required />
                     </div>
                   </div>
 
                   <div className="form-grid-3">
                     <div className="form-group">
                       <label>Localidad *</label>
-                      <input
-                        type="text"
-                        value={form.localidad}
-                        onChange={(e) => setForm({ ...form, localidad: e.target.value })}
-                        required
-                      />
+                      <input type="text" value={form.localidad} onChange={(e) => setForm({ ...form, localidad: e.target.value })} required />
                     </div>
                     <div className="form-group">
                       <label>Provincia *</label>
-                      <input
-                        type="text"
-                        value={form.provincia}
-                        onChange={(e) => setForm({ ...form, provincia: e.target.value })}
-                        required
-                      />
+                      <input type="text" value={form.provincia} onChange={(e) => setForm({ ...form, provincia: e.target.value })} required />
                     </div>
                     <div className="form-group">
                       <label>País *</label>
-                      <input
-                        type="text"
-                        value={form.pais}
-                        onChange={(e) => setForm({ ...form, pais: e.target.value })}
-                        required
-                      />
+                      <input type="text" value={form.pais} onChange={(e) => setForm({ ...form, pais: e.target.value })} required />
                     </div>
                   </div>
 
@@ -810,13 +633,10 @@ function App() {
             {/* PESTAÑA 3: INICIO (DASHBOARD) - 2 COLUMNAS (SECCIÓN CONTACTS ELIMINADA) */}
             <div className="panel-view">
               <div className="home-grid">
-                
                 {/* COLUMNA 1: PERFIL, TARJETAS DE MOCK Y ESTADÍSTICAS */}
                 <div className="dashboard-col">
                   <div className="col-header">
-                    <h3 className="greeting-title">
-                      ¡Buenas noches {role ? role : "Invitado"}!
-                    </h3>
+                    <h3 className="greeting-title">¡Buenas noches {role ? role : "Invitado"}!</h3>
                     <p className="greeting-subtitle">Resumen de tu base de datos</p>
                   </div>
 
@@ -824,14 +644,10 @@ function App() {
                   <div className="card-stack">
                     <div className="visual-card">
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <div style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", opacity: 0.9 }}>
-                          Colección MongoDB
-                        </div>
+                        <div style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", opacity: 0.9 }}>Colección MongoDB</div>
                         <div style={{ fontWeight: 800, fontSize: "0.95rem" }}>fz-db</div>
                       </div>
-                      <div className="card-number">
-                        {totalUsers.toString().padStart(4, "0")} USUARIOS
-                      </div>
+                      <div className="card-number">{totalUsers.toString().padStart(4, "0")} USUARIOS</div>
                       <div className="card-footer">
                         <div>
                           <div style={{ fontSize: "0.6rem", opacity: 0.7 }}>ESTADO DE BASE DE DATOS</div>
@@ -843,9 +659,7 @@ function App() {
 
                     <div className="visual-card purple">
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <div style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", opacity: 0.9 }}>
-                          Sesión y Token JWT
-                        </div>
+                        <div style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", opacity: 0.9 }}>Sesión y Token JWT</div>
                         <UserCheck size={18} />
                       </div>
                       <div className="card-number" style={{ fontSize: "0.85rem", letterSpacing: "0" }}>
@@ -860,7 +674,13 @@ function App() {
                       </div>
                     </div>
 
-                    <div className="add-card-placeholder" onClick={() => { resetForm(); setActiveTab("form"); }}>
+                    <div
+                      className="add-card-placeholder"
+                      onClick={() => {
+                        resetForm();
+                        setActiveTab("form");
+                      }}
+                    >
                       <Plus size={16} style={{ marginRight: "0.5rem" }} />
                       Agregar Otro Usuario
                     </div>
@@ -875,7 +695,7 @@ function App() {
                         <path d="M0,10 Q25,20 50,5 T75,18 L100,10 L100,20 L0,20 Z" fill="var(--color-accent-teal)" />
                       </svg>
                     </div>
-                    
+
                     <div className="metric-widget">
                       <span className="label">Total Admins</span>
                       <span className="value">{adminsCount}</span>
@@ -905,7 +725,7 @@ function App() {
                     )}
                   </div>
 
-                  {(role === "ROOT" || role === "ADMIN" || role === "USER") ? (
+                  {role === "ROOT" || role === "ADMIN" || role === "USER" ? (
                     <>
                       {/* Filtro y Búsqueda */}
                       <div style={{ display: "flex", gap: "0.5rem", marginBottom: "0.25rem" }}>
@@ -931,7 +751,11 @@ function App() {
                         </div>
                         <button
                           className="btn btn-secondary"
-                          onClick={() => { setFilterEmail(""); setFilterId(""); fetchUsers(); }}
+                          onClick={() => {
+                            setFilterEmail("");
+                            setFilterId("");
+                            fetchUsers();
+                          }}
                           style={{ padding: "0.6rem 0.8rem", borderRadius: "14px", flexShrink: 0 }}
                           title="Limpiar filtros"
                         >
@@ -947,42 +771,34 @@ function App() {
                         {users.map((user) => (
                           <div className="transaction-item" key={user._id}>
                             <div className="left">
-                              <div className="avatar-circle">
-                                {user.nombre ? user.nombre[0].toUpperCase() : "U"}
-                              </div>
+                              <div className="avatar-circle">{user.nombre ? user.nombre[0].toUpperCase() : "U"}</div>
                               <div className="info">
-                                <span className="name">{user.nombre} {user.apellido}</span>
-                                <span className="sub">{user.email} | Rol: <strong>{user.role}</strong></span>
-                                
+                                <span className="name">
+                                  {user.nombre} {user.apellido}
+                                </span>
+                                <span className="sub">
+                                  {user.email} | Rol: <strong>{user.role}</strong>
+                                </span>
+
                                 {/* Fecha y Hora de la Transacción */}
                                 <span className="timestamp">
                                   <Calendar size={11} />
                                   {formatDateTime(user.createdAt || user.updatedAt)}
                                 </span>
-                                
+
                                 <span className="sub" style={{ fontSize: "0.7rem", color: "var(--color-purple-primary)", fontWeight: 500, marginTop: "0.15rem" }}>
                                   ID: {user._id}
                                 </span>
                               </div>
                             </div>
                             <div className="right">
-                              <span className="amount-badge">
-                                {user.edad} Años
-                              </span>
-                              
+                              <span className="amount-badge">{user.edad} Años</span>
+
                               <div style={{ display: "flex", gap: "0.15rem" }}>
-                                <button
-                                  className="action-icon-btn"
-                                  onClick={() => handleEditClick(user)}
-                                  title="Editar"
-                                >
+                                <button className="action-icon-btn" onClick={() => handleEditClick(user)} title="Editar">
                                   <Edit2 size={14} />
                                 </button>
-                                <button
-                                  className="action-icon-btn delete"
-                                  onClick={() => handleDeleteUser(user._id)}
-                                  title="Eliminar"
-                                >
+                                <button className="action-icon-btn delete" onClick={() => handleDeleteUser(user._id)} title="Eliminar">
                                   <Trash2 size={14} />
                                 </button>
                               </div>
@@ -998,8 +814,32 @@ function App() {
                       </div>
                     </>
                   ) : (
-                    <div style={{ background: "white", padding: "2.5rem 1.5rem", borderRadius: "20px", display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem", boxShadow: "var(--shadow-card)", textAlign: "center", border: "1px solid rgba(80, 62, 189, 0.05)" }}>
-                      <div style={{ width: "54px", height: "54px", borderRadius: "50%", background: "rgba(255, 90, 121, 0.1)", display: "flex", alignItems: "center", justify: "center", color: "var(--color-accent-pink)" }}>
+                    <div
+                      style={{
+                        background: "white",
+                        padding: "2.5rem 1.5rem",
+                        borderRadius: "20px",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        gap: "1rem",
+                        boxShadow: "var(--shadow-card)",
+                        textAlign: "center",
+                        border: "1px solid rgba(80, 62, 189, 0.05)",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: "54px",
+                          height: "54px",
+                          borderRadius: "50%",
+                          background: "rgba(255, 90, 121, 0.1)",
+                          display: "flex",
+                          alignItems: "center",
+                          justify: "center",
+                          color: "var(--color-accent-pink)",
+                        }}
+                      >
                         <ShieldAlert size={26} />
                       </div>
                       <h4 style={{ fontWeight: 700, color: "var(--color-text-dark)", fontSize: "1.1rem" }}>Acceso Restringido</h4>
@@ -1012,10 +852,8 @@ function App() {
                     </div>
                   )}
                 </div>
-
               </div>
             </div>
-
           </div>
         </div>
 
@@ -1029,7 +867,10 @@ function App() {
               </span>
               {terminalLogs.length > 0 && (
                 <button
-                  onClick={() => { setTerminalLogs([]); setSelectedLog(null); }}
+                  onClick={() => {
+                    setTerminalLogs([]);
+                    setSelectedLog(null);
+                  }}
                   style={{
                     background: "rgba(255, 90, 121, 0.12)",
                     border: "1px solid rgba(255, 90, 121, 0.25)",
@@ -1041,10 +882,10 @@ function App() {
                     cursor: "pointer",
                     fontFamily: "inherit",
                     letterSpacing: "0.5px",
-                    transition: "all 0.2s"
+                    transition: "all 0.2s",
                   }}
-                  onMouseEnter={e => e.target.style.background = "rgba(255, 90, 121, 0.25)"}
-                  onMouseLeave={e => e.target.style.background = "rgba(255, 90, 121, 0.12)"}
+                  onMouseEnter={(e) => (e.target.style.background = "rgba(255, 90, 121, 0.25)")}
+                  onMouseLeave={(e) => (e.target.style.background = "rgba(255, 90, 121, 0.12)")}
                   title="Limpiar historial de la consola"
                 >
                   LIMPIAR
@@ -1052,16 +893,12 @@ function App() {
               )}
             </div>
           </div>
-          
+
           <div className="terminal-layout">
             {/* Lista de logs de peticiones (izquierda) */}
             <div className="terminal-logs-list">
               {terminalLogs.map((log) => (
-                <div
-                  key={log.id}
-                  className={`terminal-line ${selectedLog?.id === log.id ? "active" : ""}`}
-                  onClick={() => setSelectedLog(log)}
-                >
+                <div key={log.id} className={`terminal-line ${selectedLog?.id === log.id ? "active" : ""}`} onClick={() => setSelectedLog(log)}>
                   <span className="terminal-time">[{log.time}]</span>
                   <span className="terminal-prompt">admin@fz-db:~$</span>
                   <span className="terminal-text">
@@ -1074,9 +911,7 @@ function App() {
                 </div>
               ))}
               {terminalLogs.length === 0 && (
-                <div style={{ color: "var(--color-text-muted)", fontSize: "0.75rem", padding: "0.25rem 0.5rem" }}>
-                  esperando interacción con la API para registrar operaciones...
-                </div>
+                <div style={{ color: "var(--color-text-muted)", fontSize: "0.75rem", padding: "0.25rem 0.5rem" }}>esperando interacción con la API para registrar operaciones...</div>
               )}
             </div>
 
@@ -1084,7 +919,18 @@ function App() {
             <div className="terminal-inspector">
               {selectedLog ? (
                 <div>
-                  <div style={{ fontSize: "0.7rem", color: "var(--color-purple-primary)", fontWeight: 700, borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "0.2rem", marginBottom: "0.3rem", display: "flex", justifyContent: "space-between" }}>
+                  <div
+                    style={{
+                      fontSize: "0.7rem",
+                      color: "var(--color-purple-primary)",
+                      fontWeight: 700,
+                      borderBottom: "1px solid rgba(255,255,255,0.05)",
+                      paddingBottom: "0.2rem",
+                      marginBottom: "0.3rem",
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
                     <span>RESPUESTA JSON ({selectedLog.method})</span>
                     <span>{selectedLog.status}</span>
                   </div>
@@ -1098,9 +944,7 @@ function App() {
             </div>
           </div>
         </div>
-
       </main>
-
     </div>
   );
 }

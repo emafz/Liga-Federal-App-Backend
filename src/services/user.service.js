@@ -98,7 +98,9 @@ const getUsersService = async ({ email, id, requesterRole, requesterId }) => {
     }
 
     if (role === "ADMIN") {
-      return await User.find({ role: { $ne: "ROOT" } }).select("-password").sort({ nombre: 1 });
+      return await User.find({ role: { $ne: "ROOT" } })
+        .select("-password")
+        .sort({ nombre: 1 });
     }
 
     return await User.find().select("-password").sort({ nombre: 1 });
