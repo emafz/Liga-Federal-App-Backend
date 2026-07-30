@@ -130,6 +130,7 @@ const createUserService = async (data) => {
     const user = new User({
       nombre: data.nombre,
       apellido: data.apellido,
+      alias: data.alias,
       email: data.email,
       password: hashedPassword,
       fechaNacimiento: data.fechaNacimiento,
@@ -141,6 +142,9 @@ const createUserService = async (data) => {
       provincia: data.provincia,
       pais: data.pais,
       codigoPostal: data.codigoPostal,
+      avatar: data.avatar,
+      tarjeta: data.tarjeta,
+      poder: data.poder,
       role: data.role, // Si no viene, el schema asignará USER
     });
     await user.save();
@@ -148,6 +152,7 @@ const createUserService = async (data) => {
       id: user._id,
       nombre: user.nombre,
       apellido: user.apellido,
+      alias: user.alias,
       email: user.email,
       fechaNacimiento: user.fechaNacimiento,
       edad: user.edad,
@@ -158,6 +163,9 @@ const createUserService = async (data) => {
       provincia: user.provincia,
       pais: user.pais,
       codigoPostal: user.codigoPostal,
+      avatar: user.avatar,
+      tarjeta: user.tarjeta,
+      poder: user.poder,
       role: user.role,
     };
   } catch (error) {
@@ -193,7 +201,7 @@ const updateUserService = async (id, data) => {
         message: "El email no puede modificarse",
       };
     }
-    const allowedFields = ["nombre", "apellido", "fechaNacimiento", "edad", "genero", "telefono", "direccion", "localidad", "provincia", "pais", "codigoPostal", "role"];
+    const allowedFields = ["nombre", "apellido", "alias", "fechaNacimiento", "edad", "genero", "telefono", "direccion", "localidad", "provincia", "pais", "codigoPostal", "avatar", "tarjeta", "poder", "role"];
     allowedFields.forEach((field) => {
       if (data[field] !== undefined) {
         user[field] = data[field];
@@ -208,6 +216,7 @@ const updateUserService = async (id, data) => {
       id: user._id,
       nombre: user.nombre,
       apellido: user.apellido,
+      alias: user.alias,
       email: user.email,
       fechaNacimiento: user.fechaNacimiento,
       edad: user.edad,
@@ -218,6 +227,9 @@ const updateUserService = async (id, data) => {
       provincia: user.provincia,
       pais: user.pais,
       codigoPostal: user.codigoPostal,
+      avatar: user.avatar,
+      tarjeta: user.tarjeta,
+      poder: user.poder,
       role: user.role,
     };
   } catch (error) {

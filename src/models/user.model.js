@@ -10,6 +10,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    alias: {
+      type: String,
+      required: false,
+    },
     email: {
       type: String,
       required: true,
@@ -54,6 +58,42 @@ const userSchema = new mongoose.Schema(
     codigoPostal: {
       type: String,
       required: true,
+    },
+    avatar: {
+      url: {
+        type: String,
+        required: false,
+        default: "",
+      },
+      alt: {
+        type: String,
+        required: false,
+        default: "",
+      },
+    },
+    tarjeta: {
+      url: {
+        type: String,
+        required: false,
+        default: "",
+      },
+      alt: {
+        type: String,
+        required: false,
+        default: "",
+      },
+    },
+    poder: {
+      nombre: {
+        type: String,
+        required: false,
+        default: "",
+      },
+      descripcion: {
+        type: String,
+        required: false,
+        default: "",
+      },
     },
     role: {
       type: String,

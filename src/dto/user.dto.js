@@ -4,6 +4,7 @@ const roles = ["ROOT", "ADMIN", "USER", "GUEST"];
 const createUserSchema = Joi.object({
   nombre: Joi.string().trim().min(2).max(100).required(),
   apellido: Joi.string().trim().min(2).max(100).required(),
+  alias: Joi.string().trim().min(2).max(100),
   email: Joi.string().trim().email().required(),
   password: Joi.string().min(6).max(50).required(),
   fechaNacimiento: Joi.date().required(),
@@ -20,6 +21,18 @@ const createUserSchema = Joi.object({
   provincia: Joi.string().trim().max(100).required(),
   pais: Joi.string().trim().max(100).required(),
   codigoPostal: Joi.string().trim().max(20).required(),
+  avatar: Joi.object({
+    url: Joi.string().allow("").max(500),
+    alt: Joi.string().allow("").max(200),
+  }),
+  tarjeta: Joi.object({
+    url: Joi.string().allow("").max(500),
+    alt: Joi.string().allow("").max(200),
+  }),
+  poder: Joi.object({
+    nombre: Joi.string().allow("").max(100),
+    descripcion: Joi.string().allow("").max(1000),
+  }),
   role: Joi.string()
     .valid(...roles)
     /*     .default("USER") */
@@ -31,6 +44,7 @@ const createUserSchema = Joi.object({
 const updateUserSchema = Joi.object({
   nombre: Joi.string().trim().min(2).max(100),
   apellido: Joi.string().trim().min(2).max(100),
+  alias: Joi.string().trim().min(2).max(100),
   // Se permite recibirlo para devolver un mensaje amigable
   // desde el service indicando que no puede modificarse
   email: Joi.string().trim().email(),
@@ -49,6 +63,18 @@ const updateUserSchema = Joi.object({
   provincia: Joi.string().trim().max(100),
   pais: Joi.string().trim().max(100),
   codigoPostal: Joi.string().trim().max(20),
+  avatar: Joi.object({
+    url: Joi.string().allow("").max(500),
+    alt: Joi.string().allow("").max(200),
+  }),
+  tarjeta: Joi.object({
+    url: Joi.string().allow("").max(500),
+    alt: Joi.string().allow("").max(200),
+  }),
+  poder: Joi.object({
+    nombre: Joi.string().allow("").max(100),
+    descripcion: Joi.string().allow("").max(1000),
+  }),
   role: Joi.string()
     .valid(...roles)
     .messages({
@@ -69,3 +95,4 @@ const userParamsSchema = Joi.object({
 });
 
 export { createUserSchema, updateUserSchema, userParamsSchema };
+

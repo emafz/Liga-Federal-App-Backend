@@ -40,6 +40,7 @@ const loginService = async (data) => {
         id: user._id,
         nombre: user.nombre,
         apellido: user.apellido,
+        alias: user.alias,
         email: user.email,
         fechaNacimiento: user.fechaNacimiento,
         edad: user.edad,
@@ -50,6 +51,9 @@ const loginService = async (data) => {
         provincia: user.provincia,
         pais: user.pais,
         codigoPostal: user.codigoPostal,
+        avatar: user.avatar,
+        tarjeta: user.tarjeta,
+        poder: user.poder,
         role: user.role,
       },
     };
