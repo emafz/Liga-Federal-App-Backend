@@ -1,7 +1,9 @@
 import express from "express";
 import { getUsers, createUser, updateUser, deleteUser } from "../controllers/user.controller.js";
+import { uploadAvatar, uploadTarjeta } from "../controllers/upload.controller.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 import { authorizeRoles } from "../middlewares/role.middleware.js";
+import { upload } from "../middlewares/upload.middleware.js";
 
 const router = express.Router();
 
@@ -26,9 +28,17 @@ const authorizeSelfOrAdmin = (req, res, next) => {
 };
 
 router.get("/users", authMiddleware, authorizeRoles("ROOT", "ADMIN", "USER"), getUsers);
-router.post("/users", /*authMiddleware, authorizeRoles("ROOT", "ADMIN"),*/ createUser);
+router.post("/users", authMiddleware, authorizeRoles("ROOT", "ADMIN"), createUser);
 router.put("/users/:id", authMiddleware, authorizeRoles("ROOT", "ADMIN"), updateUser);
 router.delete("/users/:id", authMiddleware, authorizeRoles("ROOT", "ADMIN"), deleteUser);
+
+// -------------------------------------------------------
+// Rutas de upload a Cloudinary
+// POST /upload/avatar  → sube imagen a Liga_Federal/Avatar
+// POST /upload/tarjeta → sube imagen a Liga_Federal/Tarjetas
+// -------------------------------------------------------
+router.post("/upload/avatar", authMiddleware, upload.single("image"), uploadAvatar);
+router.post("/upload/tarjeta", authMiddleware, upload.single("image"), uploadTarjeta);
 
 /*
 //se pueden comentar para no tener que logearse para probar las rutas
